@@ -1,0 +1,17 @@
+export const DEFAULT_CARDS: string[] = [
+  'Ta chwila pokusy minie tak czy inaczej. Pytanie tylko, czy miniesz ją z drzewem, które rośnie, czy które właśnie ścięto.',
+  'Nie musisz wygrać całej wojny teraz. Musisz wygrać tylko następne 10 minut.',
+  'Pomyśl o tym, ile już przeszedłeś. Nie zniszcz tego dla chwili, która i tak zaraz minie.',
+  'Głód nikotynowy trwa zwykle 3-5 minut. Przeczekaj falę, nie walcz z nią.',
+  'Zapytaj siebie: czy za godzinę będę dumny z tej decyzji?',
+  'Twój przyszły ja patrzy na ciebie teraz i kibicuje, żebyś wytrzymał.',
+  'Każdy dzień bez snusa to cegiełka w budowie nowego ciebie.',
+  'Nie jesteś swoim głodem. Głód to chmura, która przechodzi - ty jesteś niebem.',
+  'Napij się szklankę wody, zrób 10 głębokich oddechów, wyjdź na chwilę na zewnątrz.',
+  'Pomyśl o pieniądzach, które już zaoszczędziłeś. Ile jeszcze możesz odłożyć?',
+  'To normalne, że jest ciężko. Ciężko nie znaczy niemożliwie.',
+  'Jesteś silniejszy niż myślisz. Udowodniłeś to już wcześniej.',
+  'Za tydzień to uczucie w ogóle nie będzie miało znaczenia - o ile teraz wytrzymasz.',
+  'Nie musisz być idealny. Musisz tylko nie odpuszczać.',
+  'Wyobraź sobie siebie za rok, wolnego od nałogu. On liczy na ciebie teraz.',
+];

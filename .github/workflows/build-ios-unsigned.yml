@@ -1,0 +1,68 @@
+name: Build unsigned iOS IPA
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 60
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prebuild native iOS project
+        run: npx expo prebuild --platform ios --no-install
+
+      - name: Install CocoaPods dependencies
+        working-directory: ios
+        run: pod install
+
+      - name: Find workspace and scheme
+        id: xcode
+        working-directory: ios
+        run: |
+          WORKSPACE=$(ls *.xcworkspace | head -n 1)
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
+          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
+          echo "scheme=$SCHEME" >> "$GITHUB_OUTPUT"
+
+      - name: Archive app (unsigned)
+        working-directory: ios
+        run: |
+          xcodebuild clean archive \
+            -workspace "${{ steps.xcode.outputs.workspace }}" \
+            -scheme "${{ steps.xcode.outputs.scheme }}" \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath build/App.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned IPA
+        working-directory: ios
+        run: |
+          set -e
+          APP_PATH=$(find build/App.xcarchive/Products/Applications -maxdepth 1 -name "*.app" | head -n 1)
+          mkdir -p Payload
+          cp -R "$APP_PATH" Payload/
+          zip -r App-unsigned.ipa Payload
+          mv App-unsigned.ipa ../App-unsigned.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: App-unsigned-ipa
+          path: App-unsigned.ipa
+          retention-days: 14

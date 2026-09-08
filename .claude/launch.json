@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "odwyk-web",
+      "runtimeExecutable": "C:\\Users\\jsmie\\Desktop\\odwyk\\.claude\\run-web.cmd",
+      "runtimeArgs": [],
+      "port": 8081
+    },
+    {
+      "name": "avatar-preview",
+      "runtimeExecutable": "C:\\Users\\jsmie\\Desktop\\odwyk\\.claude\\run-avatar-preview.cmd",
+      "runtimeArgs": [],
+      "port": 5544
+    }
+  ]
+}
